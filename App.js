@@ -1,33 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import HomePageActions from './containers/HomePageActions';
+import React, { useState } from 'react'
+import * as Font from 'expo-font'
+import Navigator from './routes/homeStack'
+import Home from './screens/Home'
+import Map from './screens/Map'
+import { AppLoading } from 'expo'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.base} />
-      <HomePageActions />
-    </View>
-  );
+async function getFonts() {
+  await Font.loadAsync({
+    'nunitoSans-regular': require('./assets/fonts/NunitoSans-Regular.ttf'),
+    'nunitoSans-bold': require('./assets/fonts/NunitoSans-Bold.ttf')
+})
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#D20000',
-    height: '100vh',
-    width: '100vw',
-  },
-  base: {
-    flex: 1,
-    backgroundColor: '#7C0000',
-    alignItems: 'bottom',
-    justifyContent: 'center',
-    height: '20vh',
-    width: '100vw',
-
-  },
-});
+export default function App() {
+    return (
+      <Navigator />
+    )
+};

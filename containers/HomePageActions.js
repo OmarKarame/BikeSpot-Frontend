@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function HomePageActions() {
+export default function HomePageActions({ title }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.centerText}>Test</Text>
+      <Text style={styles.centerText}>{title}</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   centerText: {
-    padding: 50,
-    backgroundColor:'red',
-    color: 'white',
+    padding: 100,
+    backgroundColor:'yellow',
+    color: 'black',
     fontSize: 20,
   }
 });
