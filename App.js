@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import * as Font from 'expo-font'
 import Navigator from './routes/homeStack'
-import Home from './screens/Home'
-import Map from './screens/Map'
+import Home from './screens/home'
 import { AppLoading } from 'expo'
 
 async function getFonts() {

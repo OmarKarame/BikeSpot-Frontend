@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function HomePageActions({ title }) {
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.centerText}>{title}</Text>
       <StatusBar style="auto" />
     </View>
@@ -12,16 +12,10 @@ export default function HomePageActions({ title }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   centerText: {
-    padding: 100,
-    backgroundColor:'yellow',
+    padding: 40,
+    backgroundColor:'white',
     color: 'black',
-    fontSize: 20,
+    fontSize: 30,
   }
 });

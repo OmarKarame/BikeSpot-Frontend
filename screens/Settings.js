@@ -2,14 +2,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import HomePageActions from '../containers/HomePageActions';
+import NavBar from '../components/NavBar';
 
 export default function Settings() {
   return (
     <View style={styles.container}>
-      <View style={styles.base} />
       <HomePageActions
         title='Settings'
       />
+      <NavBar page={'Settings'} />
     </View>
   );
 }
@@ -20,16 +21,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#D20000',
-    height: '100vh',
-    width: '100vw',
-  },
-  base: {
-    flex: 1,
-    backgroundColor: '#7C0000',
-    alignItems: 'bottom',
-    justifyContent: 'center',
-    height: '20vh',
-    width: '100vw',
-
+    height: 840,
+    width: 'auto',
+    padding: 0,
   },
 });
