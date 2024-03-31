@@ -6,11 +6,11 @@ import Chat from '../screens/chat.js'
 import Home from '../screens/home.js'
 
 const screens = {
-  Chat: {
-    screen: Chat,
-  },
   Home: {
     screen: Home,
+  },
+  Chat: {
+    screen: Chat,
   },
   Map: {
     screen: Map,
@@ -19,6 +19,14 @@ const screens = {
     screen: Settings,
   },
 };
+
+export const onPressHomeHandler = (navigation) => {
+  navigation.navigate('Home');
+};
+
+// export const onPressMapHandler = (navigation) => {
+//   navigation.navigate('Map');
+// };
 
 const HomeStack = createStackNavigator(screens);
 
