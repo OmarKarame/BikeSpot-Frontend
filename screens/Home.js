@@ -3,12 +3,17 @@ import { StyleSheet, Keyboard, View, TouchableWithoutFeedback } from 'react-nati
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LocationInput from '../components/LocationInput';
+import svgGreySwap from '../assets/images/svgGreySwap'
 
 export default function Home() {
   const navigation = useNavigation();
 
-  const locationInputHandler = () => {
-    return;
+  const locationInputHandler = (event) => {
+    console.log(event);
+  }
+
+  const handleLocationSwap = () => {
+    console.log('test');
   }
 
   return (
@@ -24,6 +29,8 @@ export default function Home() {
         <LocationInput
           locationInputHandler={locationInputHandler}
           placeholderText={'From'}
+          icon={svgGreySwap}
+          handlePress={handleLocationSwap}
         />
       </View>
     </TouchableWithoutFeedback>
