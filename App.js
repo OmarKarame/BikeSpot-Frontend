@@ -15,7 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container}>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, animationEnabled: false, }}>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false, animationEnabled: false, animation: 'none' }}>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="Settings" component={Settings} />

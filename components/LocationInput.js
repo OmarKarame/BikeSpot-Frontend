@@ -4,14 +4,16 @@ import React from 'react'
 
 const screenWidth = Dimensions.get('window').width;
 
-export default function LocationInput({ locationInputHandler, placeholderText, icon, handlePress }) {
+export default function LocationInput({ value, locationInputHandler, placeholderText, icon, handlePress }) {
 
   return (
     <View style={styles.container}>
       <TextInput
+        value={value}
         style={styles.input}
         onChangeText={locationInputHandler}
         placeholder={placeholderText}
+        placeholderTextColor={"grey"}
       />
       <TouchableOpacity onPress={handlePress}>
         <SvgXml
@@ -30,10 +32,10 @@ const styles = StyleSheet.create({
     height: 30,
     width: screenWidth * 80/100,
     backgroundColor: 'white',
-    borderRadius: 6,
+    borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 4,
     justifyContent: 'space-around'
   },
   input: {

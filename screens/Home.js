@@ -1,24 +1,19 @@
 import React from 'react';
-import { StyleSheet, Keyboard, View, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Keyboard, View, TouchableWithoutFeedback, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import LocationInput from '../components/LocationInput';
-import svgGreySwap from '../assets/images/svgGreySwap'
+import LocationSearchContainer from '../components/LocationSearchContainer';
 
 export default function Home() {
   const navigation = useNavigation();
 
-  const locationInputHandler = (event) => {
-    console.log(event);
-  }
-
-  const handleLocationSwap = () => {
-    console.log('test');
-  }
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
+      <StatusBar
+        backgroundColor="white"
+        barStyle="light-content"
+      />
         <LinearGradient
           colors={['#F10000', '#930000', '#640000']}
           start={{ x: 0, y: 0 }}
@@ -26,12 +21,7 @@ export default function Home() {
           locations={[0.0, 0.75, 1.0]}
           style={styles.innerShadow}
         />
-        <LocationInput
-          locationInputHandler={locationInputHandler}
-          placeholderText={'From'}
-          icon={svgGreySwap}
-          handlePress={handleLocationSwap}
-        />
+        <LocationSearchContainer />
       </View>
     </TouchableWithoutFeedback>
   );
