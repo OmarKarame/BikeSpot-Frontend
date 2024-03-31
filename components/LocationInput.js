@@ -30,7 +30,7 @@ export default function LocationInput({ value, locationInputHandler, placeholder
 const styles = StyleSheet.create({
   container: {
     height: 30,
-    width: screenWidth * 80/100,
+    width: screenWidth * 90/100,
     backgroundColor: 'white',
     borderRadius: 8,
     flexDirection: 'row',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   input: {
-    width: '85%',
+    width: '80%',
     // borderBlockColor: 'black',
     // borderWidth: 2,
     fontSize: 16,

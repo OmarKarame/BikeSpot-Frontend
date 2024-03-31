@@ -1,9 +1,12 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
 import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import LocationInput from '../components/LocationInput';
 import svgGreySwap from '../assets/images/svgGreySwap'
 import svgGreyMagnifyingGlass from '../assets/images/svgGreyMagnifyingGlass';
+
+const screenWidth = Dimensions.get('window').width
+const screenHeight = Dimensions.get('window').height
 
 export default function LocationSearchContainer() {
   const navigation = useNavigation();
@@ -30,12 +33,8 @@ export default function LocationSearchContainer() {
     navigation.navigate('Map')
   }
 
-  useEffect(() => {
-    console.log(`Updated\nFrom: ${fromLocation} \nTo: ${toLocation}`);
-  }, [fromLocation, toLocation]);
-
   return (
-    <View>
+    <View style={styles.container}>
       <LocationInput
         value={fromLocation}
         locationInputHandler={fromLocationInputHandler}
@@ -55,5 +54,10 @@ export default function LocationSearchContainer() {
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    width: screenWidth,
+    paddingTop: screenHeight * 8/100,
+    alignItems: 'center',
+    borderRadius: 30,
+  }
 })

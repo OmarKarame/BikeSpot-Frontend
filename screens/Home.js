@@ -32,10 +32,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#640000',
-    height: 840,
-    width: 'auto',
-    padding: 0,
   },
   innerShadow: {
     position: 'absolute',
