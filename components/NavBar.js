@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   localImage: {
     width: 770,
-    height: screenHeight*8/100,
+    height: screenHeight*10/100,
     position: 'absolute',
   },
   navButtons:{
@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
     transform: [{translateY: -50}]
   },
   icon: {
-    transform: [{translateY: -4}]
+    transform: [{translateY: -10}]
   },
 });
