@@ -3,6 +3,7 @@ import { StyleSheet, Keyboard, View, TouchableWithoutFeedback, StatusBar } from 
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LocationSearchContainer from '../components/LocationSearchContainer';
+import AdditionalContentContainer from '../components/AdditionalContentContainer';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -22,6 +23,7 @@ export default function Home() {
           style={styles.innerShadow}
         />
         <LocationSearchContainer />
+        <AdditionalContentContainer />
       </View>
     </TouchableWithoutFeedback>
   );
