@@ -1,36 +1,40 @@
 // import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LocationSearchContainer from '../components/LocationSearchContainer';
+import MapDisplay from '../components/MapDisplay';
 
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
-export default function Map() {
+export default function Map({ route }) {
+
   const navigation = useNavigation();
+  const { fromLocation = '', toLocation = '' } = route.params || {};
+
   return (
-    <View style={styles.container}>
-      {/* <LinearGradient
-        colors={['#F10000', '#930000', '#640000']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        locations={[0.0, 0.75, 1.0]}
-        style={styles.innerShadow}
-      /> */}
-      <LocationSearchContainer
-        backgroundColor={'#F10000'}
-      />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <LocationSearchContainer
+            backgroundColor={'#F10000'}
+            givenFromLocation={fromLocation}
+            givenToLocation={toLocation}
+          />
+        </View>
+        <View style={styles.mapDisplay}>
+          <MapDisplay />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     paddingTop: screenHeight * 5/100,
     backgroundColor: 'black',
     height: 840,
@@ -44,4 +48,10 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  header: {
+    zIndex: 2,
+  },
+  mapDisplay:{
+    transform: [{translateY: -(screenHeight * 9/100)}]
+  }
 });

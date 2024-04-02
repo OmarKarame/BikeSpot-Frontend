@@ -8,10 +8,10 @@ import svgGreyMagnifyingGlass from '../assets/svgs/svgGreyMagnifyingGlass';
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
-export default function LocationSearchContainer({ backgroundColor }) {
+export default function LocationSearchContainer({ backgroundColor, givenFromLocation = '', givenToLocation = '' }) {
   const navigation = useNavigation();
-  const [fromLocation, setFromLocation] = useState('')
-  const [toLocation, setToLocation] = useState('')
+  const [fromLocation, setFromLocation] = useState(givenFromLocation)
+  const [toLocation, setToLocation] = useState(givenToLocation)
 
   const fromLocationInputHandler = (event) => {
     setFromLocation(event)
@@ -31,7 +31,10 @@ export default function LocationSearchContainer({ backgroundColor }) {
 
   const handleSearch = () => {
     if (fromLocation && toLocation !== '') {
-      navigation.navigate('Map')
+      navigation.navigate('Map', {
+        fromLocation: fromLocation,
+        toLocation: toLocation
+      })
     }
     else {
       // Potentailly add a pop up that says the user needs to input to and from locations to search
