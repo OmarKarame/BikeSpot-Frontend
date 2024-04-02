@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '80%'
+    width: '70%'
   },
   arrivalTime: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '500'
   }
 })

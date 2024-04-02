@@ -9,7 +9,7 @@ export default function AdditionalContentButtons() {
     <View style={styles.container}>
       <DepartureTime />
       <TakeMeHome />
-      <ArrivalTime isLocationSet={false}/>
+      <ArrivalTime isLocationSet={true}/>
     </View>
   )
 }

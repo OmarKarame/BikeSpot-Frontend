@@ -11,7 +11,7 @@ export default function Settings() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#F10000', '#930000', '#640000']}
+        colors={['white', '#F5F5F5', '#E1E1E1']}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         locations={[0.0, 0.75, 1.0]}
