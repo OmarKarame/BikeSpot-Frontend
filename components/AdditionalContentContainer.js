@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React from 'react'
+import AdditionalContentButtons from './AdditionalContentButtons'
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
@@ -7,7 +8,7 @@ const screenHeight = Dimensions.get('window').height
 export default function AdditionalContentContainer() {
   return (
     <View style={styles.container}>
-
+      <AdditionalContentButtons />
     </View>
   )
 }

@@ -2,8 +2,8 @@ import { StyleSheet, View, Dimensions } from 'react-native'
 import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import LocationInput from '../components/LocationInput';
-import svgGreySwap from '../assets/images/svgGreySwap'
-import svgGreyMagnifyingGlass from '../assets/images/svgGreyMagnifyingGlass';
+import svgGreySwap from '../assets/svgs/svgGreySwap';
+import svgGreyMagnifyingGlass from '../assets/svgs/svgGreyMagnifyingGlass';
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height

@@ -1,32 +1,25 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { SvgXml } from 'react-native-svg';
+import { SvgXml } from 'react-native-svg'
 import React from 'react'
-import svgDarkGreyClock from '../assets/svgs/svgDarkGreyClock';
-import svgExpandArrow from '../assets/svgs/svgExpandArrow';
+import svgDarkGreyTimer from '../assets/svgs/svgDarkGreyTimer';
 
-export default function DepartureTime() {
+export default function ArrivalTime({ isLocationSet }) {
   const currentTime = new Date();
 
   const hours = currentTime.getHours().toString();
   const minutes = currentTime.getMinutes().toString();
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => console.log(isLocationSet)}>
         <View style={styles.content}>
           <SvgXml
-            xml={svgDarkGreyClock}
-            width="32"
-            height="32"
+            xml={svgDarkGreyTimer}
+            width="30"
+            height="30"
           />
-          <Text style={styles.time}>
+          <Text style={[styles.arrivalTime, { color: isLocationSet ? 'black' : 'lightgrey' }]}>
             {hours.padStart(2, '0')}:{minutes.padStart(2, '0')}
           </Text>
-          <SvgXml
-            xml={svgExpandArrow}
-            width="15"
-            height="15"
-          />
         </View>
       </TouchableOpacity>
     </View>
@@ -43,11 +36,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '90%'
+    width: '80%'
   },
-  time: {
+  arrivalTime: {
     fontSize: 16,
-    color: 'black',
     fontWeight: '500'
   }
 })

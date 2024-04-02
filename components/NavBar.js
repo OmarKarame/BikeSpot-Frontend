@@ -3,14 +3,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity  } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import svgHomeRedIconMarkup from '../assets/images/svgHomeRedIconMarkup';
-import svgHomeGreyIconMarkup from '../assets/images/svgHomeGreyIconMarkup';
-import svgMapRedIconMarkup from '../assets/images/svgMapRedIconMarkup';
-import svgMapGreyIconMarkup from '../assets/images/svgMapGreyIconMarkup';
-import svgSettingsGreyIconMarkup from '../assets/images/svgSettingsGreyIconMarkup';
-import svgSettingsRedIconMarkup from '../assets/images/svgSettingsRedIconMarkup';
-import svgChatGreyIconMarkup from '../assets/images/svgChatGreyIconMarkup';
-import svgChatRedIconMarkup from '../assets/images/svgChatRedIconMarkup';
+
+import svgHomeGreyIconMarkup from '../assets/svgs/svgHomeGreyIconMarkup';
+import svgHomeRedIconMarkup from '../assets/svgs/svgHomeRedIconMarkup';
+import svgMapGreyIconMarkup from '../assets/svgs/svgMapGreyIconMarkup';
+import svgMapRedIconMarkup from '../assets/svgs/svgMapRedIconMarkup';
+import svgSettingsGreyIconMarkup from '../assets/svgs/svgSettingsGreyIconMarkup';
+import svgSettingsRedIconMarkup from '../assets/svgs/svgSettingsRedIconMarkup';
+import svgChatGreyIconMarkup from '../assets/svgs/svgChatGreyIconMarkup';
+import svgChatRedIconMarkup from '../assets/svgs/svgChatRedIconMarkup';
+
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
