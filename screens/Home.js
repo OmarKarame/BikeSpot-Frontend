@@ -30,28 +30,35 @@ export default function Home() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Image source={require('../assets/images/bikespot-logo.png')} style={styles.bikespotLogo}/>
-          <Text style={styles.headerText}>
-            BikeSpot
-          </Text>
-        </View>
-        <StatusBar
-          backgroundColor="white"
-          barStyle="light-content"
-        />
         <LinearGradient
-          // colors={['#F10000', '#930000', '#640000']}
-          colors={['#af2f3f', '#500d1f']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          locations={[0.0, 0.95]}
-          // locations={[0.0, 0.75, 1.0]}
-          style={styles.innerShadow}
+            // colors={['#F10000', '#930000', '#640000']}
+            colors={['#af2f3f', '#500d1f']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            locations={[0.0, 0.95]}
+            // locations={[0.0, 0.75, 1.0]}
+            style={styles.innerShadow}
         />
-        <View style={styles.content}>
-          <LocationSearchContainer />
-          <AdditionalContentContainer />
+        <View style={styles.foreground}>
+          <View style={styles.header}>
+            <Image source={require('../assets/images/bikespot-logo.png')} style={styles.bikespotLogo}/>
+            <Text style={styles.headerText}>
+              BikeSpot
+            </Text>
+          </View>
+          <StatusBar
+            backgroundColor="white"
+            barStyle="light-content"
+          />
+          <View style={styles.content}>
+            <LocationSearchContainer />
+            <AdditionalContentContainer />
+          </View>
+        </View>
+        <View style={styles.background}>
+          <View style={styles.backgroundContent}>
+            <Image source={require('../assets/images/london-skyline.png')} style={styles.londonSkyline}/>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -61,6 +68,11 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
+  foreground:{
+    height: screenHeight * 80/100,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -73,7 +85,7 @@ const styles = StyleSheet.create({
   },
   header: {
     zIndex: 1,
-    transform: [{translateY: - screenHeight * 15/100}],
+    transform: [{translateY: -50}],
     alignItems: 'center'
   },
   bikespotLogo: {
@@ -84,10 +96,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontFamily: 'AlfaSlabOne',
-    transform: [{translateY: - screenHeight * 2/100}]
+    transform: [{translateY: -20}]
   },
   content: {
-    transform: [{translateY: -screenHeight * 7/100}],
+    // transform: [{translateY: -screenHeight * 0/100}],
     alignItems: 'center',
+  },
+  backgroundContent: {
+    height: 'auto',
+    transform: [{translateY: -80}],
+    opacity: 0.3,
   }
 });

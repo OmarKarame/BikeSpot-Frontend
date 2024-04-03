@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LocationSearchContainer from '../components/LocationSearchContainer';
 import MapDisplay from '../components/MapDisplay';
+import BikeInfoContainer from '../components/BikeInfoContainer';
 
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
@@ -25,7 +26,7 @@ export default function Map({ route }) {
           />
         </View>
         <View style={styles.mapDisplay}>
-          <MapDisplay />
+          <BikeInfoContainer />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -52,6 +53,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   mapDisplay:{
-    transform: [{translateY: -(screenHeight * 9/100)}]
+    transform: [{translateY: -(screenHeight * 20/100)}]
   }
 });

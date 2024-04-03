@@ -47,7 +47,7 @@ export default function LocationSearchContainer({ backgroundColor, givenFromLoca
       width: screenWidth,
       paddingTop: backgroundColor ? screenHeight * 10 / 100 : 0,
       alignItems: 'center',
-      borderRadius: 30,
+      borderRadius: 20,
       transform: [{ translateY: -50 }],
       backgroundColor: backgroundColor || 'transparent',
       paddingBottom: backgroundColor ? 20 : 0,
@@ -60,9 +60,9 @@ export default function LocationSearchContainer({ backgroundColor, givenFromLoca
       position: 'absolute',
       left: 0,
       top: 0,
-      height: '250%',
+      height: '230%',
       width: '100%',
-      borderRadius: 30,
+      borderRadius: 20,
     },
   });
 

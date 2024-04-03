@@ -29,7 +29,7 @@ export default function LocationInput({ value, locationInputHandler, placeholder
 
 const styles = StyleSheet.create({
   container: {
-    height: 30,
+    height: 36,
     width: screenWidth * 90/100,
     backgroundColor: 'white',
     borderRadius: 8,
@@ -39,9 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   input: {
-    width: '90%',
-    // borderBlockColor: 'black',
-    // borderWidth: 2,
+    width: '85%',
     fontSize: 16,
   },
   icon: {
