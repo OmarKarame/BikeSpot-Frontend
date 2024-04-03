@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 4,
+    marginVertical: 3,
     justifyContent: 'space-around'
   },
   input: {

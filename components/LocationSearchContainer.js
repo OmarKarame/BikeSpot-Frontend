@@ -45,7 +45,7 @@ export default function LocationSearchContainer({ backgroundColor, givenFromLoca
   const dynamicStyles = StyleSheet.create({
     container: {
       width: screenWidth,
-      paddingTop: backgroundColor ? screenHeight * 10 / 100 : 0,
+      paddingTop: backgroundColor ? screenHeight * 9 / 100 : 0,
       alignItems: 'center',
       borderRadius: 20,
       transform: [{ translateY: -50 }],

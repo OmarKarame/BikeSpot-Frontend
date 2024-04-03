@@ -29,7 +29,7 @@ export default function BikeInfoContainer() {
         ref={modalizeRef}
           snapPoint={screenHeight * 20/100}
           modalHeight={screenHeight * 60/100}
-          alwaysOpen={90}
+          alwaysOpen={80}
           onOverlayPress={preventClosing}
           onBackButtonPress={preventClosing}
           adjustToContentHeight={false}

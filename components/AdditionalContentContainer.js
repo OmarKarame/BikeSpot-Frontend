@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 90/100,
     height: screenHeight * 18/100,
     borderRadius: 8,
-    marginTop: 4,
+    marginTop: 3,
     transform: [{translateY: -50}]
   },
 })
