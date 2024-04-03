@@ -18,7 +18,8 @@ export default function ArrivalTime({ isLocationSet }) {
             height="30"
           />
           <Text style={[styles.arrivalTime, { color: isLocationSet ? 'black' : 'lightgrey' }]}>
-            {hours.padStart(2, '0')}:{minutes.padStart(2, '0')}
+            {/* {hours.padStart(2, '0')}:{minutes.padStart(2, '0')} */}
+            30 Min
           </Text>
         </View>
       </TouchableOpacity>
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: '70%'
+    width: '80%'
   },
   arrivalTime: {
     fontSize: 15,

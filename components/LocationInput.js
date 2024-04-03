@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   input: {
-    width: '80%',
+    width: '90%',
     // borderBlockColor: 'black',
     // borderWidth: 2,
     fontSize: 16,

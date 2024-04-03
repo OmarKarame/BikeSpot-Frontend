@@ -1,6 +1,7 @@
 import { StyleSheet, View, Dimensions } from 'react-native'
 import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 import LocationInput from '../components/LocationInput';
 import svgGreySwap from '../assets/svgs/svgGreySwap';
 import svgGreyMagnifyingGlass from '../assets/svgs/svgGreyMagnifyingGlass';
@@ -50,11 +51,30 @@ export default function LocationSearchContainer({ backgroundColor, givenFromLoca
       transform: [{ translateY: -50 }],
       backgroundColor: backgroundColor || 'transparent',
       paddingBottom: backgroundColor ? 20 : 0,
+      shadowColor: backgroundColor ? '#500d1f' : 'transparent',
+      shadowOffset: backgroundColor ? { width: -10, height: -15 } : 0,
+      shadowOpacity: backgroundColor ? 0.9 : 0,
+      shadowRadius: backgroundColor ? 30 : 0,
+    },
+    innerShadow: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      height: '250%',
+      width: '100%',
+      borderRadius: 30,
     },
   });
 
   return (
     <View style={dynamicStyles.container}>
+      <LinearGradient
+        colors={['#af2f3f', '#500d1f']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        locations={[0.0, 0.95]}
+        style={backgroundColor ? dynamicStyles.innerShadow : {}}
+      />
       <LocationInput
         value={fromLocation}
         locationInputHandler={fromLocationInputHandler}
