@@ -3,6 +3,11 @@ import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-nati
 import { Modalize } from 'react-native-modalize';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MapDisplay from './MapDisplay';
+import ExtraInfoCard from '../components/ExtraInfoCard';
+import svgWhiteClock from '../assets/svgs/svgWhiteClock';
+import svgRedTimer from '../assets/svgs/svgRedTimer';
+import svgRedDockedBicycle from '../assets/svgs/svgRedDockedBicycle';
+import svgWhiteBicycle from '../assets/svgs/svgWhiteBicycle';
 
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
@@ -28,7 +33,7 @@ export default function BikeInfoContainer() {
         <Modalize
         ref={modalizeRef}
           snapPoint={screenHeight * 20/100}
-          modalHeight={screenHeight * 60/100}
+          modalHeight={screenHeight * 65/100}
           alwaysOpen={80}
           onOverlayPress={preventClosing}
           onBackButtonPress={preventClosing}
@@ -40,6 +45,36 @@ export default function BikeInfoContainer() {
         >
           <View style={styles.infoContainer}>
             {/* <Text style={[{color: 'white', paddingTop: 7}]}>Swipe up for more</Text> */}
+            <View style={styles.infoSection}>
+              <View style={styles.bikeInfo}>
+                <ExtraInfoCard
+                  isRed={true}
+                  displayImage={svgWhiteBicycle}
+                  title={'Start Station'}
+                  info={'17/20'}
+                />
+                <ExtraInfoCard
+                  isRed={false}
+                  displayImage={svgRedDockedBicycle}
+                  title={'End Station'}
+                  info={'3/12'}
+                />
+              </View>
+              <View style={styles.timeInfo}>
+                <ExtraInfoCard
+                  isRed={true}
+                  displayImage={svgWhiteClock}
+                  title={'Departure Time'}
+                  info={'17:00'}
+                />
+                <ExtraInfoCard
+                  isRed={false}
+                  displayImage={svgRedTimer}
+                  title={'EST. Time of Arrival'}
+                  info={'17:00'}
+                />
+              </View>
+            </View>
           </View>
         </Modalize>
       </View>
@@ -54,13 +89,31 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   infoContainer:{
-    height: screenHeight * 80/100,
+    height: screenHeight * 65/100,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     borderRadius: 20,
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  infoSection: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 80
   },
   handle: {
     width: 80,
     backgroundColor: '#777',
+  },
+  bikeInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  timeInfo:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 20
   }
 })
