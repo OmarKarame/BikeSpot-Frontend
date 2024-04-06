@@ -11,13 +11,13 @@ export default function ExtraInfoCard({ isRed, displayImage, title, info}) {
     <View style={styles.container}>
       <View style={styles.iconBackground}>
         {isRed ? <LinearGradient
-          colors={['#af2f3f', '#500d1f']}
+          colors={['#EC0000', '#500d1f']}
           style={styles.gradient}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           locations={[0.4, 0.95]}
         /> : <LinearGradient
-          colors={['white', 'grey']}
+          colors={['white', 'rgba(195, 222, 231, 1)']}
           style={styles.gradient}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}

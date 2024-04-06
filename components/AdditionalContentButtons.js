@@ -1,14 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import DepartureTime from './DepartureTime'
-import TakeMeHome from './TakeMeHome'
+import TakeMe from './TakeMe'
 import ArrivalTime from './ArrivalTime'
+import houseIcon from '../assets/images/house-icon.png'
+import briefcase from '../assets/images/briefcase-icon.png'
 
 export default function AdditionalContentButtons() {
   return (
     <View style={styles.container}>
       <DepartureTime />
-      <TakeMeHome />
+      <TakeMe
+        icon={houseIcon}
+        location={'Home'}
+      />
+      <TakeMe
+        icon={briefcase}
+        location={'To Work'}
+        isWork={true}
+      />
       <ArrivalTime isLocationSet={false}/>
     </View>
   )
@@ -19,8 +29,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: 'darkgrey',
-    borderBottomWidth: 1,
-    height: '30%',
+    justifyContent: 'space-between',
+    height: '35%',
+    marginBottom: 10
   }
 })

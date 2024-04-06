@@ -3,10 +3,23 @@ import React from 'react'
 
 export default function AdditionalContentAds() {
   return (
-    <View>
-      <Text>AdditionalContentAds</Text>
+    <View style={styles.container}>
+      <Text>Additional Content Ads</Text>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '45%',
+    color: 'white',
+    backgroundColor: '#3763f8',
+    borderRadius: 8,
+    marginTop: 6,
+    width: '100%'
+  }
+})

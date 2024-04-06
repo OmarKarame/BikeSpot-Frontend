@@ -1,47 +1,102 @@
-import { StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native'
-import { SvgXml } from 'react-native-svg';
+import { StyleSheet, Text, View, TextInput, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import ButtonComponent from './ButtonComponent';
 
 const screenWidth = Dimensions.get('window').width;
 
-export default function LocationInput({ value, locationInputHandler, placeholderText, icon, handlePress }) {
+export default function LocationInput({
+  value,
+  locationInputHandler,
+  placeholderText,
+  icon,
+  handlePress,
+  buttonText,
+  buttonColor,
+  buttonInfoColor,
+  text,
+  isCurrentLocation,
+  setCurrentLocation,
+  image}) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        value={value}
-        style={styles.input}
-        onChangeText={locationInputHandler}
-        placeholder={placeholderText}
-        placeholderTextColor={"grey"}
-      />
-      <TouchableOpacity onPress={handlePress}>
-        <SvgXml
-          xml={icon}
-          width="20"
-          height="20"
-          style={styles.icon}
+      <Text style={styles.text}>{text}</Text>
+      <Image source={image} style={styles.image}/>
+      {isCurrentLocation ?
+        <TouchableOpacity style={styles.currentLocationDisplay} onPress={setCurrentLocation}>
+          <Text style={styles.primaryText}>Current Location</Text>
+          <Text style={styles.secondaryText}>{value}</Text>
+        </TouchableOpacity>
+        :
+        <TextInput
+          value={value}
+          style={styles.input}
+          onChangeText={locationInputHandler}
+          placeholder={placeholderText}
+          placeholderTextColor={"grey"}
+          autoFocus={true}
         />
-      </TouchableOpacity>
+      }
+      <ButtonComponent
+        text={buttonText}
+        icon={icon}
+        buttonColor={buttonColor}
+        handlePress={handlePress}
+        buttonInfoColor={buttonInfoColor}
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 36,
+    height: 40,
     width: screenWidth * 90/100,
+    // backgroundColor: '#C3DEE7',
     backgroundColor: 'white',
-    borderRadius: 8,
+    // borderColor: '#EC0000',
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 30,
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 3,
-    justifyContent: 'space-around'
+    justifyContent: 'space-between'
+  },
+  currentLocationDisplay: {
+    width: '60%',
+    height: '100%',
+    justifyContent: 'center'
+  },
+  primaryText: {
+    width: '100%',
+    fontSize: 16,
+    letterSpacing: -0.43,
+    fontWeight: '500'
+  },
+  secondaryText: {
+    width: '100%',
+    fontSize: 10,
+    letterSpacing: -0.43,
+    fontWeight: '500',
+    color: 'grey',
+    marginLeft: 1
+  },
+  text: {
+    marginLeft: 10,
+    fontWeight: '700',
+    width: '10%'
   },
   input: {
-    width: '85%',
+    width: '60%',
     fontSize: 16,
+    height: '100%',
+    letterSpacing: -0.43,
+    fontWeight: '500'
   },
-  icon: {
+  image: {
+    height: 20,
+    width: 20,
+    marginHorizontal: -20
   }
 })

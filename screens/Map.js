@@ -1,8 +1,9 @@
 // import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import LocationContext from '../components/LocationContext';
 import LocationSearchContainer from '../components/LocationSearchContainer';
 import MapDisplay from '../components/MapDisplay';
 import BikeInfoContainer from '../components/BikeInfoContainer';
@@ -10,10 +11,13 @@ import BikeInfoContainer from '../components/BikeInfoContainer';
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
-export default function Map({ route }) {
+export default function Map() {
+  const {
+    fromLocation,
+    toLocation,
+  } = useContext(LocationContext);
 
   const navigation = useNavigation();
-  const { fromLocation = '', toLocation = '' } = route.params || {};
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -53,6 +57,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   mapDisplay:{
-    transform: [{translateY: -(screenHeight * 20/100)}]
+    transform: [{translateY: -(screenHeight * 16/100)}]
   }
 });

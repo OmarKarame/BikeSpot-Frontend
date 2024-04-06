@@ -8,14 +8,6 @@ const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
 export default function MapDisplay() {
-
-  // const [currentLocation, setCurrentLocation] = useState({
-  //   latitude: 37.78825,
-  //   longitude: -122.4324,
-  //   latitudeDelta: 0.015,
-  //   longitudeDelta: 0.0121,
-  // })
-
   const [location, setLocation] = useState(null);
 
   useEffect(() => {

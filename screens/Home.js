@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Keyboard, View, TouchableWithoutFeedback, StatusBar, Text, Dimensions, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import LocationSearchContainer from '../components/LocationSearchContainer';
 import AdditionalContentContainer from '../components/AdditionalContentContainer';
+import bikeSpotLogo from '../assets/images/bikespot-logo.png'
 import * as Font from 'expo-font';
 
 async function loadFonts() {
@@ -14,6 +15,7 @@ async function loadFonts() {
 }
 
 const screenHeight = Dimensions.get('window').height
+const screenWidth = Dimensions.get('window').width
 
 export default function Home() {
   const navigation = useNavigation();
@@ -32,33 +34,34 @@ export default function Home() {
       <View style={styles.container}>
         <LinearGradient
             // colors={['#F10000', '#930000', '#640000']}
-            colors={['#af2f3f', '#500d1f']}
+            // colors={['#af2f3f', '#500d1f']}
+            colors={['white', '#F5F5F5', '#E1E1E1']}
             start={{ x: 0, y: 0 }}
             end={{ x: 0, y: 1 }}
-            locations={[0.0, 0.95]}
-            // locations={[0.0, 0.75, 1.0]}
+            // locations={[0.0, 0.95]}
+            locations={[0.0, 0.75, 1.0]}
             style={styles.innerShadow}
         />
-        <View style={styles.foreground}>
-          <View style={styles.header}>
-            <Image source={require('../assets/images/bikespot-logo.png')} style={styles.bikespotLogo}/>
-            <Text style={styles.headerText}>
-              BikeSpot
-            </Text>
+        <StatusBar
+          backgroundColor="white"
+          barStyle="dark-content"
+        />
+        <View style={styles.content}>
+          <View style={styles.headerSection}>
+            <View style={styles.headerBlob}>
+
+            </View>
+            <View style={styles.headerTextSection}>
+              <Text style={styles.headerText}>
+                Find your fastest route now!
+              </Text>
+            </View>
+            <View style={styles.headerLogoSection}>
+              <Image source={bikeSpotLogo} style={styles.headerLogo} />
+            </View>
           </View>
-          <StatusBar
-            backgroundColor="white"
-            barStyle="light-content"
-          />
-          <View style={styles.content}>
-            <LocationSearchContainer />
-            <AdditionalContentContainer />
-          </View>
-        </View>
-        <View style={styles.background}>
-          <View style={styles.backgroundContent}>
-            <Image source={require('../assets/images/london-skyline.png')} style={styles.londonSkyline}/>
-          </View>
+          <LocationSearchContainer />
+          <AdditionalContentContainer />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -69,12 +72,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: 'flex',
-    justifyContent: 'space-around'
-  },
-  foreground:{
-    height: screenHeight * 80/100,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   innerShadow: {
     position: 'absolute',
@@ -83,28 +81,53 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  header: {
-    zIndex: 1,
-    transform: [{translateY: -50}],
-    alignItems: 'center'
-  },
   bikespotLogo: {
     height: 200,
     width: 200,
   },
-  headerText: {
-    color: 'white',
-    fontSize: 18,
-    fontFamily: 'AlfaSlabOne',
-    transform: [{translateY: -20}]
-  },
   content: {
-    // transform: [{translateY: -screenHeight * 0/100}],
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    position: 'absolute',
+    top: screenHeight * 8/100
+  },
+  headerSection: {
+    width: screenWidth * 90/100,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    transform: [{ translateX: - screenWidth * 12/100}]
+  },
+  headerTextSection:{
+    width: '85%',
+    // backgroundColor: 'red',
+    marginBottom: 12,
+    borderRadius: 8,
     alignItems: 'center',
   },
-  backgroundContent: {
-    height: 'auto',
-    transform: [{translateY: -80}],
-    opacity: 0.3,
+  headerText: {
+    color: 'black',
+    fontSize: 60,
+    fontWeight: '600',
+    marginBottom: '3%',
+    letterSpacing: -2,
+    lineHeight: 70,
+  },
+  headerBlob: {
+    width: 50,
+    height: '92%',
+    backgroundColor: '#ED0000',
+    borderRadius: 20,
+    marginRight: 4
+  },
+  headerLogoSection: {
+    width: '17%',
+    alignItems: 'flex-end'
+  },
+  headerLogo: {
+    height: 70,
+    width: 70,
+    marginTop: 4,
   }
 });

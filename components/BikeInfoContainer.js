@@ -33,13 +33,14 @@ export default function BikeInfoContainer() {
         <Modalize
         ref={modalizeRef}
           snapPoint={screenHeight * 20/100}
-          modalHeight={screenHeight * 65/100}
-          alwaysOpen={80}
+          modalHeight={screenHeight * 70/100}
+          alwaysOpen={100}
           onOverlayPress={preventClosing}
           onBackButtonPress={preventClosing}
           adjustToContentHeight={false}
           modalStyle={{
             backgroundColor: 'transparent',
+            shadowColor: 'transparent'
           }}
           handleStyle={styles.handle}
         >
@@ -70,8 +71,8 @@ export default function BikeInfoContainer() {
                 <ExtraInfoCard
                   isRed={false}
                   displayImage={svgRedTimer}
-                  title={'EST. Time of Arrival'}
-                  info={'17:00'}
+                  title={'EST. Time Till Arrival'}
+                  info={'0 Min'}
                 />
               </View>
             </View>
