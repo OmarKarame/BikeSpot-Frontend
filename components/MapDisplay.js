@@ -57,7 +57,7 @@ export default function MapDisplay() {
 
 const styles = StyleSheet.create({
   container: {
-    height: screenHeight * 80/100,
+    height: screenHeight * 82/100,
     width: screenWidth,
     ...StyleSheet.absoluteFillObject,
   },

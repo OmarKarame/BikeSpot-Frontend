@@ -1,7 +1,8 @@
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Alert } from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SvgXml } from 'react-native-svg';
 import * as Location from 'expo-location';
 import LocationContext from '../components/LocationContext';
 import LocationInput from '../components/LocationInput';
@@ -9,11 +10,12 @@ import svgWhiteSwap from '../assets/svgs/svgWhiteSwap';
 import svgWhiteMagnifyingGlass from '../assets/svgs/svgWhiteMagnifyingGlass';
 import currentLocation from '../assets/images/current-location.png';
 import locationIcon from '../assets/images/location-icon.png';
+import svgWhiteBackButton from '../assets/svgs/svgWhiteBackButton';
 
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
-export default function LocationSearchContainer({ backgroundColor}) {
+export default function LocationSearchContainer({ backgroundColor, addRecent }) {
   const {
     fromLocation,
     setFromLocation,
@@ -50,10 +52,15 @@ export default function LocationSearchContainer({ backgroundColor}) {
 
   const handleSearch = () => {
     if (fromLocation && toLocation !== '') {
+      addRecent(toLocation)
       navigation.navigate('Map', {})
     }
     else {
-      // Potentailly add a pop up that says the user needs to input to and from locations to search
+      Alert.alert(
+        'Please select a location',
+        'You need to select a location to perform the search.',
+        [{ text: 'OK', onPress: () => console.log('OK pressed') }]
+      );
     }
   }
 
@@ -78,16 +85,17 @@ export default function LocationSearchContainer({ backgroundColor}) {
   const dynamicStyles = StyleSheet.create({
     container: {
       width: screenWidth,
-      paddingTop: backgroundColor ? screenHeight * 7 / 100 : 0,
+      paddingTop: backgroundColor ? screenHeight * 12 / 100 : 0,
       alignItems: 'center',
       borderRadius: 20,
-      transform: backgroundColor ? [{ translateY: - screenHeight * 5 / 100 }] : [{translateY: 0}],
+      transform: backgroundColor ? [{ translateY: - screenHeight * 7 / 100 }] : [{translateY: 0}],
       backgroundColor: backgroundColor || 'transparent',
       paddingBottom: backgroundColor ? 20 : 0,
       shadowColor: backgroundColor ? '#EC0000' : 'transparent',
       shadowOffset: backgroundColor ? { width: -10, height: -15 } : 0,
       shadowOpacity: backgroundColor ? 0.9 : 0,
       shadowRadius: backgroundColor ? 30 : 0,
+      zIndex: 22
     },
     innerShadow: {
       position: 'absolute',
@@ -106,7 +114,13 @@ export default function LocationSearchContainer({ backgroundColor}) {
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         locations={[0.0, 0.95]}
-        // style={backgroundColor ? dynamicStyles.innerShadow : {}}
+      />
+      <SvgXml
+        xml={svgWhiteBackButton}
+        width="25"
+        height="25"
+        style={styles.icon}
+        onPress={() => navigation.navigate('Home', {})}
       />
       <LocationInput
         value={fromLocation}
@@ -139,4 +153,9 @@ export default function LocationSearchContainer({ backgroundColor}) {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    position: 'absolute',
+    top: screenHeight * 8/100,
+    left: screenWidth * 5/100,
+  }
 })

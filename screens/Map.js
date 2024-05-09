@@ -23,11 +23,13 @@ export default function Map() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <LocationSearchContainer
+          {/* <LocationSearchContainer
             backgroundColor={'#F10000'}
             givenFromLocation={fromLocation}
             givenToLocation={toLocation}
-          />
+          /> */}
+          <Text style={styles.text}>From: {fromLocation}</Text>
+          <Text style={styles.text}>{toLocation}</Text>
         </View>
         <View style={styles.mapDisplay}>
           <BikeInfoContainer />
@@ -40,7 +42,7 @@ export default function Map() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: screenHeight * 5/100,
+    // paddingTop: screenHeight * 5/100,
     backgroundColor: 'black',
     height: 840,
     width: 'auto',
@@ -55,8 +57,26 @@ const styles = StyleSheet.create({
   },
   header: {
     zIndex: 2,
+    height: 150,
+    width: screenWidth,
+    backgroundColor: '#ED0000',
+    display: 'flex',
+    justifyContent: 'center',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowOffset: { width: -10, height: -15 },
+    shadowColor: '#EC0000',
+    shadowOpacity: 0.9,
+    shadowRadius: 30,
   },
   mapDisplay:{
-    transform: [{translateY: -(screenHeight * 16/100)}]
+    transform: [{translateY: -(screenHeight * 10/100)}]
+  },
+  text: {
+    paddingLeft: 20,
+    paddingTop: 20,
+    fontWeight: '700',
+    color: 'white',
+    fontSize: 16
   }
 });

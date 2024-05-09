@@ -7,7 +7,7 @@ import clockIcon from '../assets/images/clock-icon.png'
 import svgExpandArrow from '../assets/svgs/svgExpandArrow';
 
 export default function DepartureTime() {
-  const currentTime = new Date();
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [isPickerVisible, setPickerVisibility] = useState(false);
   const [time, setTime] = useState(new Date());
   const [isPressed, setIsPressed] = useState(false);
@@ -27,8 +27,14 @@ export default function DepartureTime() {
     hidePicker();
   };
 
-  const hours = currentTime.getHours().toString();
-  const minutes = currentTime.getMinutes().toString();
+    const startInterval = () => {
+        if (intervalId === null) {
+            const id = setInterval(() => {
+                setCurrentTime(new Date());
+            }, 60000);
+            setIntervalId(id);
+        }
+    };
 
   const handlePressIn = () => {
     setIsPressed(true);
@@ -49,12 +55,14 @@ export default function DepartureTime() {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      setIsNow(isTimeNow(time));
-    }, 60000);
-
-    return () => clearInterval(interval);
+    // Check if the time is equal to the current or earlier before executing this code
+    if (time <= currentTime){
+      const interval = setInterval(() => {
+        const now = new Date();
+        setIsNow(isTimeNow(now));
+      }, 60000);
+      return () => clearInterval(interval);
+    }
   }, [time])
 
   return (

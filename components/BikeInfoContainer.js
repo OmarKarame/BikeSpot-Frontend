@@ -85,7 +85,7 @@ export default function BikeInfoContainer() {
 
 const styles = StyleSheet.create({
   container: {
-    height: screenHeight * 80/100,
+    height: screenHeight * 82/100,
     backgroundColor: 'transparent',
     borderRadius: 30,
   },

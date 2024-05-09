@@ -7,6 +7,8 @@ import LocationSearchContainer from '../components/LocationSearchContainer';
 import AdditionalContentContainer from '../components/AdditionalContentContainer';
 import bikeSpotLogo from '../assets/images/bikespot-logo.png'
 import * as Font from 'expo-font';
+import GetMeSomewhereButton from '../components/GetMeSomewhereButton';
+import santanderBike from '../assets/images/santander-bike.png'
 
 async function loadFonts() {
   await Font.loadAsync({
@@ -60,8 +62,12 @@ export default function Home() {
               <Image source={bikeSpotLogo} style={styles.headerLogo} />
             </View>
           </View>
-          <LocationSearchContainer />
+          {/* <LocationSearchContainer /> */}
+          <GetMeSomewhereButton />
           <AdditionalContentContainer />
+        </View>
+        <View style={styles.footer}>
+          <Image source={santanderBike} style={styles.bikeImage} />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -73,6 +79,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     justifyContent: 'flex-start',
+    width: screenWidth,
+    alignItems: 'center'
   },
   innerShadow: {
     position: 'absolute',
@@ -129,5 +137,16 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     marginTop: 4,
+  },
+  footer: {
+    width: screenWidth,
+    position: 'absolute',
+    bottom: 40,
+    left: 0,
+  },
+  bikeImage: {
+    width: screenWidth*1.09,
+    height: screenHeight * 30 /100,
+
   }
 });

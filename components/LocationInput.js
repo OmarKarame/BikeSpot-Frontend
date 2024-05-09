@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TextInput, Dimensions, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TextInput, Dimensions, Image, TouchableOpacity, Keyboard } from 'react-native'
+import React, { useRef } from 'react'
 import ButtonComponent from './ButtonComponent';
 
 const screenWidth = Dimensions.get('window').width;
@@ -16,7 +16,7 @@ export default function LocationInput({
   text,
   isCurrentLocation,
   setCurrentLocation,
-  image}) {
+  image}){
 
   return (
     <View style={styles.container}>
@@ -34,7 +34,7 @@ export default function LocationInput({
           onChangeText={locationInputHandler}
           placeholder={placeholderText}
           placeholderTextColor={"grey"}
-          autoFocus={true}
+          editable={true}
         />
       }
       <ButtonComponent
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 3,
+    marginVertical: 2,
     justifyContent: 'space-between'
   },
   currentLocationDisplay: {
