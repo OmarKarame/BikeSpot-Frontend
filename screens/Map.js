@@ -29,7 +29,7 @@ export default function Map() {
             givenToLocation={toLocation}
           /> */}
           <Text style={styles.text}>From: {fromLocation}</Text>
-          <Text style={styles.text}>{toLocation}</Text>
+          <Text style={styles.text}>To: {toLocation}</Text>
         </View>
         <View style={styles.mapDisplay}>
           <BikeInfoContainer />

@@ -3,25 +3,24 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SvgXml } from 'react-native-svg';
 import React from 'react'
 
-export default function ButtonComponent({ text, icon, buttonColor, buttonInfoColor, handlePress }) {
+export default function ButtonComponent({ text, icon, buttonColor, handlePress }) {
   return (
     <TouchableOpacity onPress={handlePress} style={[styles.container, {backgroundColor: buttonColor}]}>
-      {/* <Text style={[styles.text, {color:buttonInfoColor}]}>{text}</Text> */}
+      {text && !icon && <Text style={[styles.text]}>{text}</Text>}
+      {icon && !text && (
+        <SvgXml
+          xml={icon}
+          width="20"
+          height="20"
+          style={styles.icon}
+        />
+      )}
       <LinearGradient
-        // colors={['#F10000', '#930000', '#640000']}
-        // colors={['#af2f3f', '#500d1f']}
         colors={['EC0000', 'black']}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        // locations={[0.0, 0.95]}
         locations={[0.0, 0.5]}
         style={styles.innerShadow}
-      />
-      <SvgXml
-        xml={icon}
-        width="20"
-        height="20"
-        style={styles.icon}
       />
     </TouchableOpacity>
   )
@@ -40,6 +39,10 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   text:{
-    fontWeight: '800',
+    color: 'white',
+    fontWeight: '600',
+  },
+  icon: {
+    transform: [{ rotate: '90deg' }]
   }
 })

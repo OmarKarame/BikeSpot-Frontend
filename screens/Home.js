@@ -50,9 +50,9 @@ export default function Home() {
         />
         <View style={styles.content}>
           <View style={styles.headerSection}>
-            <View style={styles.headerBlob}>
+            {/* <View style={styles.headerBlob}>
 
-            </View>
+            </View> */}
             <View style={styles.headerTextSection}>
               <Text style={styles.headerText}>
                 Find your fastest route now!
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 90/100,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    transform: [{ translateX: - screenWidth * 12/100}]
+    // transform: [{ translateX: - screenWidth * 12/100}]
   },
   headerTextSection:{
     width: '85%',
@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
   bikeImage: {
     width: screenWidth*1.09,
     height: screenHeight * 30 /100,
-
+    opacity: 1
   }
 });

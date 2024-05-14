@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     minWidth:'12%',
     alignItems: 'center',
     maxWidth: '24%',
-    backgroundColor: 'rgba(195, 222, 231, 0.4)',
+    backgroundColor: 'rgba(195, 222, 231, 0.5)',
     borderRadius: 10,
   },
   pressed: {

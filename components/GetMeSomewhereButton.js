@@ -34,7 +34,7 @@ export default function GetMeSomewhereButton() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    height: 50,
     width: screenWidth * 90/100,
     borderRadius: 10,
     flexDirection: 'row',
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     marginLeft: '30%',
   },
   icon: {
-    marginRight: 10,
+    marginRight: 20,
   },
 });

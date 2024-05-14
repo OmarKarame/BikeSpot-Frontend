@@ -8,7 +8,7 @@ import LocationContext from '../components/LocationContext';
 import LocationInput from '../components/LocationInput';
 import svgWhiteSwap from '../assets/svgs/svgWhiteSwap';
 import svgWhiteMagnifyingGlass from '../assets/svgs/svgWhiteMagnifyingGlass';
-import currentLocation from '../assets/images/current-location.png';
+import currentLocationIcon from '../assets/images/current-location.png';
 import locationIcon from '../assets/images/location-icon.png';
 import svgWhiteBackButton from '../assets/svgs/svgWhiteBackButton';
 
@@ -21,24 +21,52 @@ export default function LocationSearchContainer({ backgroundColor, addRecent }) 
     setFromLocation,
     toLocation,
     setToLocation,
-    isCurrentLocation,
-    setIsCurrentLocation
+    isFromCurrentLocation,
+    setIsFromCurrentLocation,
+    isToCurrentLocation,
+    setIsToCurrentLocation,
+    isFromFocused,
+    setIsFromFocused,
+    isToFocused,
+    setIsToFocused,
   } = useContext(LocationContext);
 
   const navigation = useNavigation();
 
+  const handleFocusFrom = () => {
+    setIsFromFocused(true);
+    setIsToFocused(false);
+  };
 
-  const handleSetCurrentLocation = () => {
-    setIsCurrentLocation(false)
+  const handleBlurFrom = () => {
+    setIsFromFocused(false);
+  };
+
+  const handleFocusTo = () => {
+    setIsToFocused(true);
+    setIsFromFocused(false);
+  };
+
+  const handleBlurTo = () => {
+    setIsToFocused(false);
+  };
+
+  const handleSetFromCurrentLocation = () => {
+    setIsFromCurrentLocation(false)
+  }
+
+  const handleSetToCurrentLocation = () => {
+    setIsToCurrentLocation(false)
   }
 
   const fromLocationInputHandler = (event) => {
     setFromLocation(event)
-    setIsCurrentLocation(false)
+    setIsFromCurrentLocation(false)
   }
 
   const toLocationInputHandler = (event) => {
     setToLocation(event)
+    setIsToCurrentLocation(false)
   }
 
   const handleLocationSwap = () => {
@@ -47,7 +75,16 @@ export default function LocationSearchContainer({ backgroundColor, addRecent }) 
 
     setFromLocation(newFromLocation);
     setToLocation(newToLocation);
-    setIsCurrentLocation(false);
+    if(isFromCurrentLocation == true){
+      setIsFromCurrentLocation(false)
+      setIsToCurrentLocation(true)
+    }
+    else if (isToCurrentLocation == true) {
+      setIsFromCurrentLocation(true)
+      setIsToCurrentLocation(false)
+    }
+    setIsFromFocused(!isFromFocused);
+    setIsToFocused(!isToFocused);
   }
 
   const handleSearch = () => {
@@ -63,24 +100,6 @@ export default function LocationSearchContainer({ backgroundColor, addRecent }) 
       );
     }
   }
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Permission to access location was denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      let { latitude, longitude } = location.coords;
-      // Optionally, use reverse geocoding to convert coords to a readable address
-      const address = await Location.reverseGeocodeAsync({ latitude, longitude });
-      if (address.length > 0 && fromLocation == '')  {
-        setFromLocation(`${address[0].city}, ${address[0].street}`);
-      }
-    })();
-  }, []);
 
   const dynamicStyles = StyleSheet.create({
     container: {
@@ -128,25 +147,28 @@ export default function LocationSearchContainer({ backgroundColor, addRecent }) 
         placeholderText={'From'}
         icon={svgWhiteSwap}
         handlePress={handleLocationSwap}
-        buttonText={'Swap'}
         buttonColor={'rgba(0,0,0, 1)'}
         buttonInfoColor={'white'}
         text={'Start'}
-        isCurrentLocation={isCurrentLocation}
-        setCurrentLocation={handleSetCurrentLocation}
-        image={isCurrentLocation ? currentLocation : locationIcon}
+        isCurrentLocation={isFromCurrentLocation}
+        setIsCurrentLocation={handleSetFromCurrentLocation}
+        image={isFromCurrentLocation ? currentLocationIcon : locationIcon}
+        onFocus={handleFocusFrom}
+        onBlur={handleBlurFrom}
       />
       <LocationInput
         value={toLocation}
         locationInputHandler={toLocationInputHandler}
         placeholderText={'To'}
-        icon={svgWhiteMagnifyingGlass}
         handlePress={handleSearch}
         buttonText={'Go'}
         buttonColor={'rgba(236,3,0,1)'}
-        buttonInfoColor={'black'}
         text={'End'}
-        image={locationIcon}
+        isCurrentLocation={isToCurrentLocation}
+        setIsCurrentLocation={handleSetToCurrentLocation}
+        image={isToCurrentLocation ? currentLocationIcon : locationIcon}
+        onFocus={handleFocusTo}
+        onBlur={handleBlurTo}
       />
     </View>
   )

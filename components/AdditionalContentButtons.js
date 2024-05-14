@@ -3,6 +3,7 @@ import React from 'react'
 import DepartureTime from './DepartureTime'
 import TakeMe from './TakeMe'
 import ArrivalTime from './ArrivalTime'
+import NumberOfBikes from './NumberOfBikes'
 import houseIcon from '../assets/images/house-icon.png'
 import briefcase from '../assets/images/briefcase-icon.png'
 
@@ -19,7 +20,8 @@ export default function AdditionalContentButtons() {
         location={'To Work'}
         isWork={true}
       />
-      <ArrivalTime isLocationSet={false}/>
+      {/* <ArrivalTime isLocationSet={false}/> */}
+      <NumberOfBikes />
     </View>
   )
 }

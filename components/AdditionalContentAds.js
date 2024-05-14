@@ -15,12 +15,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '45%',
+    height: '40%',
     color: 'white',
     // backgroundColor: '#3763f8',
-    backgroundColor: 'grey',
+    backgroundColor: 'white',
     borderRadius: 8,
     marginTop: 6,
+    borderWidth: 0.3,
+    borderBlockColor: 'black',
     width: '100%'
   }
 })

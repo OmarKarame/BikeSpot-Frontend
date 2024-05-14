@@ -15,15 +15,18 @@ export default function LocationInput({
   buttonInfoColor,
   text,
   isCurrentLocation,
-  setCurrentLocation,
-  image}){
-
+  setIsCurrentLocation,
+  image,
+  onFocus,
+  onBlur,
+  currentLocation
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{text}</Text>
       <Image source={image} style={styles.image}/>
       {isCurrentLocation ?
-        <TouchableOpacity style={styles.currentLocationDisplay} onPress={setCurrentLocation}>
+        <TouchableOpacity style={styles.currentLocationDisplay} onPress={setIsCurrentLocation}>
           <Text style={styles.primaryText}>Current Location</Text>
           <Text style={styles.secondaryText}>{value}</Text>
         </TouchableOpacity>
@@ -34,7 +37,9 @@ export default function LocationInput({
           onChangeText={locationInputHandler}
           placeholder={placeholderText}
           placeholderTextColor={"grey"}
-          editable={true}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          editable={!isCurrentLocation}
         />
       }
       <ButtonComponent
@@ -45,7 +50,7 @@ export default function LocationInput({
         buttonInfoColor={buttonInfoColor}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
