@@ -37,7 +37,7 @@ export default function ExtraInfoCard({ isRed, displayImage, title, info}) {
 
 const styles = StyleSheet.create({
   container: {
-    height: screenHeight * 22/100,
+    height: screenHeight * 23/100,
     width: screenWidth * 40/100,
     alignItems: 'center',
     justifyContent: 'space-around'
@@ -60,7 +60,10 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 16,
-  },
+    textAlign: 'center',
+    width: '80%',
+    marginTop: 5,
+    },
   info: {
     color: 'white',
     fontSize: 24,

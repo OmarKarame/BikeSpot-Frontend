@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Modal, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import LocationContext from '../components/LocationContext';
 import bicycleIcon from '../assets/images/bicycle-icon.png';
 
 export default function NumberOfBikes() {
-  const [numberOfBikes, setNumberOfBikes] = useState(1);
+  const {
+    setNumBikes,
+    numBikes
+  } = useContext(LocationContext);
+  // const [numberOfBikes, setNumberOfBikes] = useState(1);
   const [isPickerVisible, setPickerVisibility] = useState(false);
 
   const togglePicker = () => {
@@ -24,7 +29,7 @@ export default function NumberOfBikes() {
       >
         <View style={styles.content}>
           <Image source={bicycleIcon} style={styles.image} />
-          <Text style={styles.text}>{numberOfBikes}</Text>
+          <Text style={styles.text}>{numBikes}</Text>
         </View>
       </TouchableOpacity>
       <Modal
@@ -36,11 +41,11 @@ export default function NumberOfBikes() {
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <View style={styles.buttonView}>
-              <Button title="Cancel" onPress={handleCancel} color="blue" style={styles.cancelButton}/>
+              <Button title="Done" onPress={handleCancel} color="blue" style={styles.cancelButton}/>
             </View>
             <Picker
-              selectedValue={numberOfBikes}
-              onValueChange={(itemValue, itemIndex) => setNumberOfBikes(itemValue)}
+              selectedValue={numBikes}
+              onValueChange={(itemValue, itemIndex) => setNumBikes(itemValue)}
               style={styles.picker}
             >
               {Array.from({ length: 10 }, (_, i) => i + 1).map((value) => (

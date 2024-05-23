@@ -7,28 +7,8 @@ import React from 'react'
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
-export default function MapDisplay() {
-  const [location, setLocation] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.error('Permission to access location was denied');
-        return;
-      }
-
-      Location.watchPositionAsync(
-        {
-          accuracy: Location.Accuracy.High,
-          distanceInterval: 2,
-        },
-        (newLocation) => {
-          setLocation(newLocation.coords);
-        }
-      );
-    })();
-  }, []);
+export default function MapDisplay({ location }) {
+  // console.log(location.latitude);
   return (
     <View style={styles.container}>
       <MapView

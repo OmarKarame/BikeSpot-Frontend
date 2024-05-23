@@ -12,7 +12,7 @@ import svgWhiteBicycle from '../assets/svgs/svgWhiteBicycle';
 const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
-export default function BikeInfoContainer() {
+export default function BikeInfoContainer({ location, startStation, endStation }) {
   const modalizeRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,7 +29,9 @@ export default function BikeInfoContainer() {
   return (
     <GestureHandlerRootView style={{ flex: 1, marginTop: 80, width: screenWidth, }}>
       <View style={styles.container}>
-        <MapDisplay />
+        <MapDisplay
+          location={location}
+        />
         <Modalize
         ref={modalizeRef}
           snapPoint={screenHeight * 20/100}
@@ -51,14 +53,14 @@ export default function BikeInfoContainer() {
                 <ExtraInfoCard
                   isRed={true}
                   displayImage={svgWhiteBicycle}
-                  title={'Start Station'}
-                  info={'17/20'}
+                  title={startStation.commonName}
+                  info={`${startStation.nbBikes}/${startStation.nbDocks}`}
                 />
                 <ExtraInfoCard
                   isRed={false}
                   displayImage={svgRedDockedBicycle}
-                  title={'End Station'}
-                  info={'3/12'}
+                  title={endStation.commonName}
+                  info={`${endStation.nbBikes}/${endStation.nbDocks}`}
                 />
               </View>
               <View style={styles.timeInfo}>

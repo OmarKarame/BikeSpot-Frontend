@@ -11,6 +11,7 @@ export const LocationProvider = ({ children }) => {
   const [isToCurrentLocation, setIsToCurrentLocation] = useState(false);
   const [isFromFocused, setIsFromFocused] = useState(false);
   const [isToFocused, setIsToFocused] = useState(true);
+  const [numBikes, setNumBikes] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -34,7 +35,7 @@ export const LocationProvider = ({ children }) => {
   }, []);
 
   return (
-    <LocationContext.Provider value={{ fromLocation, setFromLocation, toLocation, setToLocation, isFromCurrentLocation, setIsFromCurrentLocation, isToCurrentLocation, setIsToCurrentLocation, isFromFocused, setIsFromFocused, isToFocused, setIsToFocused, currentLocation, setCurrentLocation }}>
+    <LocationContext.Provider value={{ fromLocation, setFromLocation, toLocation, setToLocation, isFromCurrentLocation, setIsFromCurrentLocation, isToCurrentLocation, setIsToCurrentLocation, isFromFocused, setIsFromFocused, isToFocused, setIsToFocused, currentLocation, setCurrentLocation, numBikes, setNumBikes }}>
       {children}
     </LocationContext.Provider>
   );
