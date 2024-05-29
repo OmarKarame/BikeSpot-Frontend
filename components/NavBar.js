@@ -3,24 +3,26 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity  } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import svgHomeRedIconMarkup from '../assets/images/svgHomeRedIconMarkup';
-import svgHomeGreyIconMarkup from '../assets/images/svgHomeGreyIconMarkup';
-import svgMapRedIconMarkup from '../assets/images/svgMapRedIconMarkup';
-import svgMapGreyIconMarkup from '../assets/images/svgMapGreyIconMarkup';
-import svgSettingsGreyIconMarkup from '../assets/images/svgSettingsGreyIconMarkup';
-import svgSettingsRedIconMarkup from '../assets/images/svgSettingsRedIconMarkup';
-import svgChatGreyIconMarkup from '../assets/images/svgChatGreyIconMarkup';
-import svgChatRedIconMarkup from '../assets/images/svgChatRedIconMarkup';
+
+import svgHomeGreyIconMarkup from '../assets/svgs/svgHomeGreyIconMarkup';
+import svgHomeRedIconMarkup from '../assets/svgs/svgHomeRedIconMarkup';
+import svgMapGreyIconMarkup from '../assets/svgs/svgMapGreyIconMarkup';
+import svgMapRedIconMarkup from '../assets/svgs/svgMapRedIconMarkup';
+import svgSettingsGreyIconMarkup from '../assets/svgs/svgSettingsGreyIconMarkup';
+import svgSettingsRedIconMarkup from '../assets/svgs/svgSettingsRedIconMarkup';
+import svgChatGreyIconMarkup from '../assets/svgs/svgChatGreyIconMarkup';
+import svgChatRedIconMarkup from '../assets/svgs/svgChatRedIconMarkup';
+
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
   export default function NavBar({ currentPage, navigation }) {
     const SelectedPage = {
-      'Home': -screenWidth/3,
-      'Map': -screenWidth/10.7,
-      'Settings': screenWidth/6.8,
-      'Chat': screenWidth/2.6,
+      'Home': -screenWidth/3.2,
+      'Map': -screenWidth/11.2,
+      'Settings': screenWidth/6.96,
+      'Chat': screenWidth/2.7,
     }
 
     const svgHomeIconMarkup = (isActive) => {
@@ -86,36 +88,44 @@ const screenHeight = Dimensions.get('window').height;
         />
         <View style={styles.navButtons}>
           <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <SvgXml
-              xml={getIconMarkup('Home')}
-              width="40"
-              height="40"
-              style={currentPage === 'Home' ? styles.activeIcon : styles.icon}
-            />
+            <View style={currentPage === 'Home' ? styles.iconBackground : styles.transparentBackground}>
+              <SvgXml
+                xml={getIconMarkup('Home')}
+                width="40"
+                height="40"
+                style={currentPage === 'Home' ? styles.activeIcon : styles.icon}
+              />
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Map')}>
-            <SvgXml
-              xml={getIconMarkup('Map')}
-              width="40"
-              height="40"
-              style={currentPage === 'Map' ? styles.activeIcon : styles.icon}
-            />
+            <View style={currentPage === 'Map' ? styles.iconBackground : styles.transparentBackground}>
+              <SvgXml
+                  xml={getIconMarkup('Map')}
+                  width="40"
+                  height="40"
+                  style={currentPage === 'Map' ? styles.activeIcon : styles.icon}
+                />
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-            <SvgXml
-              xml={getIconMarkup('Settings')}
-              width="40"
-              height="40"
-              style={currentPage === 'Settings' ? styles.activeIcon : styles.icon}
-            />
+            <View style={currentPage === 'Settings' ? styles.iconBackground : styles.transparentBackground}>
+              <SvgXml
+                xml={getIconMarkup('Settings')}
+                width="40"
+                height="40"
+                style={currentPage === 'Settings' ? styles.activeIcon : styles.icon}
+              />
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
-            <SvgXml
-              xml={getIconMarkup('Chat')}
-              width="40"
-              height="40"
-              style={currentPage === 'Chat' ? styles.activeIcon : styles.icon}
-            />
+            <View style={currentPage === 'Chat' ? styles.iconBackground : styles.transparentBackground}>
+              <SvgXml
+                xml={getIconMarkup('Chat')}
+                width="40"
+                height="40"
+                style={currentPage === 'Chat' ? styles.activeIcon : styles.icon}
+              />
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -131,7 +141,7 @@ const styles = StyleSheet.create({
   },
   localImage: {
     width: 770,
-    height: screenHeight*8/100,
+    height: screenHeight*10/100,
     position: 'absolute',
   },
   navButtons:{
@@ -143,10 +153,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  activeIcon:{
-    transform: [{translateY: -50}]
+  transparentBackground: {
+
+  },
+  iconBackground: {
+    borderRadius: 50,
+    backgroundColor: 'white',
+    transform: [{translateY: -50}],
+    padding: 10
   },
   icon: {
-    transform: [{translateY: -4}]
+    transform: [{translateY: -10}]
   },
 });
