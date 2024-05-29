@@ -61,7 +61,7 @@ export default function NumberOfBikes() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: '1',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(195, 222, 231, 0.4)',
