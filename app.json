@@ -1,11 +1,15 @@
 {
-  "expo": {
-    "name": "BikeSpot-Frontend",
-    "slug": "BikeSpot-Frontend",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  },
-  "name": "BikeSpot-Frontend"
+    "expo": {
+      "name": "BikeSpot-Frontend",
+      "slug": "BikeSpot-Frontend",
+      "version": "1.0.0",
+      "assetBundlePatterns": [
+        "**/*"
+      ],
+      "splash": {
+        "image": "assets/images/bikespot-logo.png",
+        "resizeMode": "contain", 
+        "backgroundColor": "#ffffff"
+      }
+    }
 }
