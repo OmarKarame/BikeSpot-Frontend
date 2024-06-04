@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Dimensions, SectionList, TouchableOpacity, Imag
 import React, { useEffect, useState, useContext } from 'react'
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
+import { REACT_APP_GCP_MAP_API_KEY } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LocationSearchContainer from '../components/LocationSearchContainer'
 import LocationContext from '../components/LocationContext';
@@ -80,7 +81,6 @@ export default function Search() {
       console.error('Failed to load recents:', err);
     });
   }, []);
-
 
   // Create a variable that stores a boolean of the focus of the text input of the fromLocation and toLocation
   // Filter based on which is in focus
@@ -247,6 +247,21 @@ export default function Search() {
     })();
   }, []);
 
+  async function getLocationData(location) {
+    const response = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${location}&key=${REACT_APP_GCP_MAP_API_KEY}`);
+    const data = await response.json();
+    // const apiKey = process.env.REACT_APP_GCP_MAP_API_KEY
+    console.log(REACT_APP_GCP_MAP_API_KEY);
+    console.log(data);
+  }
+
+  useEffect(() => {
+    getLocationData(fromLocation)
+  }, [fromLocation])
+
+  useEffect(() => {
+    getLocationData(toLocation)
+  }, [toLocation])
 
   return (
     <View style={styles.container}>

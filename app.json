@@ -5,7 +5,13 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.BikeSpot.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.BikeSpot.app"
+    }
   },
   "name": "BikeSpot-Frontend"
 }
