@@ -15,7 +15,9 @@ const screenWidth = Dimensions.get('window').width
 export default function Search() {
   // const [yourLocation, setYourLocation] = useState(fromLocation);
   const [recents, setRecents] = useState([]);
+  const [dataJson, setDataJson] = useState({"predictions": []})
   const [data, setData] = useState([]);
+
   // const [toLocationSelected, setToLocationSelected] = useState(false)
   // const [fromLocationSelected, setFromLocationSelected] = useState(false)
 
@@ -101,111 +103,7 @@ export default function Search() {
       {
         id: '2',
         title: 'Places',
-        data: [
-          "British Museum",
-          "Tower of London",
-          "Buckingham Palace",
-          "The Shard",
-          "Natural History Museum",
-          "London Eye",
-          "Tate Modern",
-          "Science Museum",
-          "Victoria and Albert Museum",
-          "Tower Bridge",
-          "Royal Observatory Greenwich",
-          "St. Paul's Cathedral",
-          "Westminster Abbey",
-          "Hyde Park",
-          "Churchill War Rooms",
-          "Kensington Palace",
-          "Covent Garden",
-          "Piccadilly Circus",
-          "The National Gallery",
-          "The Museum of London",
-          "Hampton Court Palace",
-          "ZSL London Zoo",
-          "Trafalgar Square",
-          "The Royal Air Force Museum",
-          "Shakespeare's Globe",
-          "Somerset House",
-          "The British Library",
-          "Regent's Park",
-          "Camden Market",
-          "The Gherkin",
-          "Houses of Parliament",
-          "The Royal Albert Hall",
-          "Madame Tussauds",
-          "The London Dungeon",
-          "The O2",
-          "Little Venice",
-          "The Wallace Collection",
-          "Leicester Square",
-          "Greenwich Park",
-          "Barbican Centre",
-          "London Transport Museum",
-          "Carnaby Street",
-          "Borough Market",
-          "Chinatown",
-          "Kew Gardens",
-          "Imperial War Museum",
-          "Harrods",
-          "The Design Museum",
-          "Wembley Stadium",
-          "Battersea Power Station",
-          "Sky Garden",
-          "Old Royal Naval College",
-          "Serpentine Gallery",
-          "Thames River Cruise",
-          "St. James's Park",
-          "Oxford Street",
-          "Whitechapel Gallery",
-          "BFI Southbank",
-          "Queen Elizabeth Olympic Park",
-          "Neal's Yard",
-          "Saatchi Gallery",
-          "Millennium Bridge",
-          "Southbank Centre",
-          "The Courtauld Gallery",
-          "Canary Wharf",
-          "Hampstead Heath",
-          "Brick Lane",
-          "Royal Courts of Justice",
-          "London Bridge",
-          "Chelsea Physic Garden",
-          "The Clink Prison Museum",
-          "Museum of London Docklands",
-          "Bank of England Museum",
-          "Richmond Park",
-          "Museum of Comedy",
-          "The Monument",
-          "Holland Park",
-          "Cutty Sark",
-          "Emirates Air Line cable car",
-          "Guildhall",
-          "Royal Exchange",
-          "Tate Britain",
-          "Crystal Palace Park",
-          "Dulwich Picture Gallery",
-          "London Aquarium",
-          "Alexandra Palace",
-          "Benjamin Franklin House",
-          "King's Cross Station",
-          "Queen's House",
-          "Royal Botanic Gardens, Kew",
-          "Fulham Palace",
-          "Museum of Brands",
-          "The Postal Museum",
-          "Primrose Hill",
-          "Science Gallery",
-          "St Katharine Docks",
-          "Wellcome Collection",
-          "Whitehall",
-          "Pudding Lane",
-          "Apsley House",
-          "Fortnum & Mason",
-          "Dr. Johnson's House",
-          "Smithfield Market"
-        ],
+        data: [],
         image: LocationIcon
       },
     ];
@@ -248,11 +146,11 @@ export default function Search() {
   }, []);
 
   async function getLocationData(location) {
-    const response = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${location}&key=${REACT_APP_GCP_MAP_API_KEY}`);
+    const response = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${location}&location=51.5074%2C-0.1278&radius=20000&key=${REACT_APP_GCP_MAP_API_KEY}`);
     const data = await response.json();
     // const apiKey = process.env.REACT_APP_GCP_MAP_API_KEY
-    console.log(REACT_APP_GCP_MAP_API_KEY);
-    console.log(data);
+    // console.log(data);
+    setDataJson(data)
   }
 
   useEffect(() => {
@@ -261,6 +159,10 @@ export default function Search() {
 
   useEffect(() => {
     getLocationData(toLocation)
+    if (dataJson != undefined){
+      console.log(dataJson.predictions[0].structured_formatting.main_text);
+      console.log(dataJson.predictions[0].structured_formatting.secondary_text);
+    }
   }, [toLocation])
 
   return (
