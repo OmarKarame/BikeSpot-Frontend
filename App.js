@@ -12,6 +12,24 @@ import NavBarWrapper from './components/NavBarWrapper';
 
 const Stack = createNativeStackNavigator();
 
+// Ignoring specific warnings while in development mode
+if (__DEV__) {
+    const ignoredWarnings = [
+      'Support for defaultProps will be removed from memo components in a future major release. Use JavaScript default parameters instead.', 
+      // Reason: Known widespread issue due to recent react native version changes, hopefully would be fixed in next stable release of React
+      // default props not directly used in code, but some dependencies still use it even with latest version: expo-cli and babel/helpers
+
+    ];
+  
+    console.error = (message) => {
+      if (ignoredWarnings.some(warning => message.includes(warning))) {
+        return;
+      }
+      // Continue logging other warnings as normal
+      console.warn(message);
+    };
+}
+
 export default function App() {
 
   return (
