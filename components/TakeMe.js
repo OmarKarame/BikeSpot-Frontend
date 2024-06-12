@@ -46,7 +46,7 @@ export default function TakeMe({ icon, location, isWork }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: '1',
+    flex: 1,
     height: '100%',
     justifyContent: 'center',
     minWidth:'12%',
