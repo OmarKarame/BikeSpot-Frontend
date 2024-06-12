@@ -1,25 +1,23 @@
-import { StyleSheet, Text, View, Dimensions, SectionList, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState, useContext } from 'react'
+import { StyleSheet, Text, View, Dimensions, SectionList, TouchableOpacity, Image, Button } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
-import { REACT_APP_GCP_MAP_API_KEY } from '@env';
+import { REACT_APP_GCP_MAP_API_KEY, REACT_APP_LOCATIONIQ_API_KEY } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LocationSearchContainer from '../components/LocationSearchContainer'
+import LocationSearchContainer from '../components/LocationSearchContainer';
 import LocationContext from '../components/LocationContext';
-import CurrentLocationIcon from '../assets/images/current-location.png'
-import LocationIcon from '../assets/images/location-icon.png'
+import CurrentLocationIcon from '../assets/images/current-location.png';
+import LocationIcon from '../assets/images/location-icon.png';
 
-const screenHeight = Dimensions.get('window').height
-const screenWidth = Dimensions.get('window').width
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 export default function Search() {
-  // const [yourLocation, setYourLocation] = useState(fromLocation);
   const [recents, setRecents] = useState([]);
-  const [dataJson, setDataJson] = useState({"predictions": []})
+  const [dataJson, setDataJson] = useState([]);
   const [data, setData] = useState([]);
-
-  // const [toLocationSelected, setToLocationSelected] = useState(false)
-  // const [fromLocationSelected, setFromLocationSelected] = useState(false)
+  const [fromRecentsData, setFromRecentsData] = useState({})
+  const [toRecentsData, setToRecentsData] = useState({})
 
   const {
     fromLocation,
@@ -40,7 +38,8 @@ export default function Search() {
 
   const addRecent = async (newAddress) => {
     setRecents(currentRecents => {
-      if (currentRecents.includes(newAddress)) {
+      // Check if the recent already exists
+      if (currentRecents.some(recent => recent.display_name === newAddress.display_name)) {
         return currentRecents;
       }
 
@@ -55,23 +54,36 @@ export default function Search() {
     });
   };
 
-  const toggleToIcon = (section) => {
-    if (section.title == 'Your Location'){
-      setIsToCurrentLocation(true)
-    }
-    else{
-      setIsToCurrentLocation(false)
-    }
-  }
-  const toggleFromIcon = (section) => {
-    if (section.title == 'Your Location'){
-      setIsFromCurrentLocation(true)
-    }
-    else{
-      setIsFromCurrentLocation(false)
-    }
-  }
+  const clearRecents = async () => {
+    setRecents([]);
+    await AsyncStorage.removeItem('recents').catch(err => {
+      console.error('Failed to clear recents:', err);
+    });
+  };
 
+  // change this to the button in the LocationSearchContainer and remove the Button from the bottom of the screen (see comment below)
+  const handleGoPress = () => {
+    const locationToAdd = isFromFocused ? fromRecentsData : toRecentsData;
+    if (locationToAdd) {
+      addRecent({ display_place: locationToAdd.display_place, display_name: locationToAdd.display_name });
+    }
+  };
+
+  const toggleToIcon = (section) => {
+    if (section.title == 'Your Location') {
+      setIsToCurrentLocation(true);
+    } else {
+      setIsToCurrentLocation(false);
+    }
+  };
+
+  const toggleFromIcon = (section) => {
+    if (section.title == 'Your Location') {
+      setIsFromCurrentLocation(true);
+    } else {
+      setIsFromCurrentLocation(false);
+    }
+  };
 
   useEffect(() => {
     // Load recents from AsyncStorage
@@ -82,54 +94,57 @@ export default function Search() {
     }).catch(err => {
       console.error('Failed to load recents:', err);
     });
+
+    // Clear recents once
+    // clearRecents();
   }, []);
 
-  // Create a variable that stores a boolean of the focus of the text input of the fromLocation and toLocation
-  // Filter based on which is in focus
+  const maxLength = (text) => {
+    if (text.length > 70) {
+      return `${text.slice(0,70)}...`
+    }
+    else {
+      return text
+    }
+  }
+
   const filterSections = () => {
-    let sections = [
-      {
-        id: '0',
-        title: 'Your Location',
-        data: [currentLocation],
-        image: CurrentLocationIcon
-      },
-      {
-        id: '1',
-        title: 'Recents',
-        data: recents,
-        image: LocationIcon
-      },
-      {
-        id: '2',
-        title: 'Places',
-        data: [],
-        image: LocationIcon
-      },
-    ];
-    if (!isFromFocused && !isToFocused) {
-      return sections;
+    if (
+      (isFromFocused && fromLocation !== '') ||
+      (isToFocused && toLocation !== '')
+    ) {
+      return [
+        {
+          id: '2',
+          title: 'Places',
+          data: Array.isArray(dataJson) ? dataJson.map(place => ({
+            display_place: place.display_place,
+            display_name: maxLength(place.display_name)
+          })) : [],
+          image: LocationIcon
+        },
+      ];
     } else {
-      const activeInput = isFromFocused ? fromLocation : toLocation;
-      if (activeInput === '') {
-        return sections.filter(section => ['Your Location', 'Recents'].includes(section.title));
-      } else {
-        // Filter only 'Places' based on the active input, and hide 'Your Location' and 'Recents'
-        return sections.map(section => {
-          if (section.title === 'Places') {
-            const filteredData = section.data.filter(place => place.toLowerCase().startsWith(activeInput.toLowerCase()));
-            return { ...section, data: filteredData };
-          }
-          return { ...section, data: [] }; // Clear the data for 'Your Location' and 'Recents'
-        }).filter(section => section.data.length > 0); // Remove sections that have no data
-      }
+      return [
+        {
+          id: '0',
+          title: 'Your Location',
+          data: [{ display_place: 'Current Location', display_name: currentLocation }],
+          image: CurrentLocationIcon
+        },
+        {
+          id: '1',
+          title: 'Recents',
+          data: recents,
+          image: LocationIcon
+        },
+      ];
     }
   };
 
   useEffect(() => {
     setData(filterSections());
-  }, [fromLocation, toLocation, isFromFocused, isToFocused, recents, currentLocation]);
-
+  }, [fromLocation, toLocation, isFromFocused, isToFocused, recents, currentLocation, dataJson]);
 
   useEffect(() => {
     (async () => {
@@ -146,59 +161,67 @@ export default function Search() {
   }, []);
 
   async function getLocationData(location) {
-    const response = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${location}&location=51.5074%2C-0.1278&radius=20000&key=${REACT_APP_GCP_MAP_API_KEY}`);
+    const response = await fetch(`https://api.locationiq.com/v1/autocomplete?key=${REACT_APP_LOCATIONIQ_API_KEY}&q=${location}&limit=5&dedupe=1&viewbox=-0.510375,51.691874,0.334015,51.286760&bounded=1`);
     const data = await response.json();
-    // const apiKey = process.env.REACT_APP_GCP_MAP_API_KEY
-    // console.log(data);
-    setDataJson(data)
+    setDataJson(data);
   }
 
   useEffect(() => {
-    getLocationData(fromLocation)
-  }, [fromLocation])
+    if (fromLocation) {
+      getLocationData(fromLocation);
+    }
+  }, [fromLocation]);
 
   useEffect(() => {
-    getLocationData(toLocation)
-    if (dataJson != undefined){
-      console.log(dataJson.predictions[0].structured_formatting.main_text);
-      console.log(dataJson.predictions[0].structured_formatting.secondary_text);
+    if (toLocation) {
+      getLocationData(toLocation);
     }
-  }, [toLocation])
+  }, [toLocation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <LocationSearchContainer
           backgroundColor={'#F10000'}
-          addRecent={addRecent}
+          addRecent={handleGoPress}
         />
       </View>
       <View style={styles.body}>
-      <SectionList
-        sections={data}
-        keyExtractor={(item, index) => `item-${index}`}
-        renderItem={({ item, section }) => (
-          <TouchableOpacity onPress={() => {
-            const setLocation = isFromFocused ? setFromLocation : setToLocation;
-            setLocation(item);
-            const toggleFunction = isFromFocused ? toggleFromIcon : toggleToIcon;
-            toggleFunction(section);
-          }} style={styles.touchableItem}>
-            <View style={styles.placeContainer}>
-              <Image source={section.image} style={styles.image} />
-              <Text style={styles.place}>{item}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-        renderSectionHeader={({ section }) => (
-          <Text style={styles.sectionHeader}>{section.title}</Text>
-        )}
-        // ItemSeparatorComponent={() => <View style={styles.separator} />}
-        // ListEmptyComponent={<Text></Text>}
-      />
+        <SectionList
+          sections={data}
+          keyExtractor={(item, index) => `item-${index}`}
+          renderItem={({ item, section }) => (
+            <TouchableOpacity onPress={() => {
+              const setLocation = isFromFocused ? setFromLocation : setToLocation;
+              setLocation(item.display_place);
+              isFromFocused ? setFromRecentsData({
+                display_place: item.display_place,
+                display_name: item.display_name
+              }) : setToRecentsData({
+                display_place: item.display_place,
+                display_name: item.display_name
+              })
+              const toggleFunction = isFromFocused ? toggleFromIcon : toggleToIcon;
+              toggleFunction(section);
+            }} style={styles.touchableItem}>
+              <View style={styles.placeContainer}>
+                <Image source={section.image} style={styles.image} />
+                <View>
+                  <Text style={styles.place}>{item.display_place}</Text>
+                  <Text style={styles.secondaryPlace}>{item.display_name}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+          renderSectionHeader={({ section }) => (
+            <Text style={styles.sectionHeader}>{section.title}</Text>
+          )}
+          // ItemSeparatorComponent={() => <View style={styles.separator} />}
+          // ListEmptyComponent={<Text></Text>}
+        />
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -219,12 +242,11 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   body: {
-    height: screenHeight * 81/100,
-    width: screenWidth * 90/100,
-    // borderWidth: 2,
-    // borderBlockColor: 'black',
+    height: screenHeight * 81 / 100,
+    width: screenWidth * 90 / 100,
     transform: [{ translateY: -65 }],
-    zIndex: 21
+    zIndex: 21,
+    paddingBottom: 100,
   },
   touchableItem: {
     backgroundColor: 'white',
@@ -241,9 +263,15 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   place: {
-    fontSize: 16,
+    fontSize: 13,
     color: '#333',
     fontWeight: '600',
+    marginLeft: 5,
+  },
+  secondaryPlace: {
+    fontSize: 8,
+    color: '#333',
+    fontWeight: '400',
     marginLeft: 5,
   },
   placeContainer: {
