@@ -8,6 +8,7 @@ import Chat from './screens/Chat';
 import Map from './screens/Map';
 import Settings from './screens/Settings';
 import Search from './screens/Search';
+import OutOfBounds from './screens/OutOfBounds';
 import NavBarWrapper from './components/NavBarWrapper';
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ export default function App() {
               <Stack.Screen name="Settings" component={Settings} />
               <Stack.Screen name="Chat" component={Chat} />
               <Stack.Screen name="Search" component={Search} />
+              <Stack.Screen name="OutOfBounds" component={OutOfBounds} />
             </Stack.Navigator>
             <NavBarWrapper />
           </View>

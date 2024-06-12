@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 export default function TakeMe({ icon, location, isWork }) {
   const [isPressed, setIsPressed] = useState(false);
+  const navigation = useNavigation();
 
   const handlePressIn = () => {
     setIsPressed(true);
   }
-  const handlePressOut = () => setIsPressed(false);
+  const handlePressOut = () => {
+    setIsPressed(false);
+    navigation.navigate('OutOfBounds', {})
+  }
 
   return (
   <TouchableOpacity
