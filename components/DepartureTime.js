@@ -105,7 +105,7 @@ export default function DepartureTime() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: '1',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(195, 222, 231, 0.5)',

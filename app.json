@@ -1,17 +1,15 @@
 {
-  "expo": {
-    "name": "BikeSpot-Frontend",
-    "slug": "BikeSpot-Frontend",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "com.BikeSpot.app"
-    },
-    "ios": {
-      "bundleIdentifier": "com.BikeSpot.app"
+    "expo": {
+      "name": "BikeSpot-Frontend",
+      "slug": "BikeSpot-Frontend",
+      "version": "1.0.0",
+      "assetBundlePatterns": [
+        "**/*"
+      ],
+      "splash": {
+        "image": "assets/images/bikespot-logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      }
     }
-  },
-  "name": "BikeSpot-Frontend"
 }
