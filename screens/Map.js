@@ -11,7 +11,10 @@ const screenHeight = Dimensions.get('window').height
 const screenWidth = Dimensions.get('window').width
 
 export default function Map() {
-  const { fromLocation, toLocation, numBikes } = useContext(LocationContext);
+  const { fromLocation, toLocation, numBikes, currentPosition, fromLat,
+    fromLon,
+    toLat,
+    toLon, } = useContext(LocationContext);
 
   const [start, setStart] = useState(fromLocation);
   const [location, setLocation] = useState(null);
@@ -109,13 +112,21 @@ export default function Map() {
     }
   }, [fromLocation]); // Fetch when fromLocation changes
 
-  useEffect(() => {
-    console.log(startStation);
-  }, [startStation]);
+  // useEffect(() => {
+  //   console.log(startStation);
+  // }, [startStation]);
+
+  // useEffect(() => {
+  //   console.log(endStation);
+  // }, [endStation]);
 
   useEffect(() => {
-    console.log(endStation);
-  }, [endStation]);
+    // console.log(currentPosition);
+    // console.log(fromLat);
+    // console.log(fromLon);
+    // console.log(toLat);
+    // console.log(toLon);
+  }, [toLon])
 
   const navigation = useNavigation();
 

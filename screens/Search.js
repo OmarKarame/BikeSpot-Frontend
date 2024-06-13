@@ -16,10 +16,16 @@ export default function Search() {
   const [recents, setRecents] = useState([]);
   const [dataJson, setDataJson] = useState([]);
   const [data, setData] = useState([]);
-  const [fromRecentsData, setFromRecentsData] = useState({})
-  const [toRecentsData, setToRecentsData] = useState({})
+  const [fromRecentsData, setFromRecentsData] = useState({});
+  const [toRecentsData, setToRecentsData] = useState({});
+  const [tempFromLat, setTempFromLat] = useState(null);
+  const [tempFromLon, setTempFromLon] = useState(null);
+  const [tempToLat, setTempToLat] = useState(null);
+  const [tempToLon, setTempToLon] = useState(null);
 
   const {
+    currentPosition,
+    setCurrentPosition,
     fromLocation,
     setFromLocation,
     toLocation,
@@ -33,16 +39,22 @@ export default function Search() {
     isToFocused,
     setIsToFocused,
     currentLocation,
-    setCurrentLocation
+    setCurrentLocation,
+    fromLat,
+    setFromLat,
+    fromLon,
+    setFromLon,
+    toLat,
+    setToLat,
+    toLon,
+    setToLon,
   } = useContext(LocationContext);
 
   const addRecent = async (newAddress) => {
     setRecents(currentRecents => {
-      // Check if the recent already exists
       if (currentRecents.some(recent => recent.display_name === newAddress.display_name)) {
         return currentRecents;
       }
-
       const updatedRecents = currentRecents.length >= 10 ? currentRecents.slice(1) : [...currentRecents];
       updatedRecents.push(newAddress);
 
@@ -61,16 +73,28 @@ export default function Search() {
     });
   };
 
-  // change this to the button in the LocationSearchContainer and remove the Button from the bottom of the screen (see comment below)
   const handleGoPress = () => {
+    if (isFromFocused) {
+      setFromLat(tempFromLat);
+      setFromLon(tempFromLon);
+    } else {
+      setToLat(tempToLat);
+      setToLon(tempToLon);
+    }
+
     const locationToAdd = isFromFocused ? fromRecentsData : toRecentsData;
     if (locationToAdd) {
-      addRecent({ display_place: locationToAdd.display_place, display_name: locationToAdd.display_name });
+      addRecent({
+        display_place: locationToAdd.display_place,
+        display_name: locationToAdd.display_name,
+        lat: locationToAdd.lat,
+        lon: locationToAdd.lon,
+      });
     }
   };
 
   const toggleToIcon = (section) => {
-    if (section.title == 'Your Location') {
+    if (section.title === 'Your Location') {
       setIsToCurrentLocation(true);
     } else {
       setIsToCurrentLocation(false);
@@ -78,7 +102,7 @@ export default function Search() {
   };
 
   const toggleFromIcon = (section) => {
-    if (section.title == 'Your Location') {
+    if (section.title === 'Your Location') {
       setIsFromCurrentLocation(true);
     } else {
       setIsFromCurrentLocation(false);
@@ -86,7 +110,6 @@ export default function Search() {
   };
 
   useEffect(() => {
-    // Load recents from AsyncStorage
     AsyncStorage.getItem('recents').then(data => {
       if (data) {
         setRecents(JSON.parse(data));
@@ -94,32 +117,27 @@ export default function Search() {
     }).catch(err => {
       console.error('Failed to load recents:', err);
     });
-
-    // Clear recents once
-    // clearRecents();
   }, []);
 
   const maxLength = (text) => {
     if (text.length > 70) {
-      return `${text.slice(0,70)}...`
+      return `${text.slice(0,70)}...`;
+    } else {
+      return text;
     }
-    else {
-      return text
-    }
-  }
+  };
 
   const filterSections = () => {
-    if (
-      (isFromFocused && fromLocation !== '') ||
-      (isToFocused && toLocation !== '')
-    ) {
+    if ((isFromFocused && fromLocation !== '') || (isToFocused && toLocation !== '')) {
       return [
         {
           id: '2',
           title: 'Places',
           data: Array.isArray(dataJson) ? dataJson.map(place => ({
             display_place: place.display_place,
-            display_name: maxLength(place.display_name)
+            display_name: maxLength(place.display_name),
+            lat: place.lat,
+            lon: place.lon,
           })) : [],
           image: LocationIcon
         },
@@ -157,11 +175,13 @@ export default function Search() {
       let { latitude, longitude } = location.coords;
       const address = await Location.reverseGeocodeAsync({ latitude, longitude });
       setFromLocation(`${address[0].city}, ${address[0].street}`);
+      setFromLat(latitude);
+      setFromLon(longitude);
     })();
   }, []);
 
   async function getLocationData(location) {
-    const response = await fetch(`https://api.locationiq.com/v1/autocomplete?key=${REACT_APP_LOCATIONIQ_API_KEY}&q=${location}&limit=5&dedupe=1&viewbox=-0.510375,51.691874,0.334015,51.286760&bounded=1`);
+    const response = await fetch(`https://api.locationiq.com/v1/autocomplete?key=${REACT_APP_LOCATIONIQ_API_KEY}&q=${location}&limit=10&dedupe=1&viewbox=-0.510375,51.691874,0.334015,51.286760&bounded=1`);
     const data = await response.json();
     setDataJson(data);
   }
@@ -194,13 +214,25 @@ export default function Search() {
             <TouchableOpacity onPress={() => {
               const setLocation = isFromFocused ? setFromLocation : setToLocation;
               setLocation(item.display_place);
-              isFromFocused ? setFromRecentsData({
-                display_place: item.display_place,
-                display_name: item.display_name
-              }) : setToRecentsData({
-                display_place: item.display_place,
-                display_name: item.display_name
-              })
+              if (isFromFocused) {
+                setFromRecentsData({
+                  display_place: item.display_place,
+                  display_name: item.display_name,
+                  lat: isFromCurrentLocation ? currentPosition.lat : item.lat,
+                  lon: isFromCurrentLocation ? currentPosition.lon : item.lon,
+                });
+                setTempFromLat(item.lat);
+                setTempFromLon(item.lon);
+              } else {
+                setToRecentsData({
+                  display_place: item.display_place,
+                  display_name: item.display_name,
+                  lat: isToCurrentLocation ? currentPosition.lat : item.lat,
+                  lon: isToCurrentLocation ? currentPosition.lon : item.lon,
+                });
+                setTempToLat(item.lat);
+                setTempToLon(item.lon);
+              }
               const toggleFunction = isFromFocused ? toggleFromIcon : toggleToIcon;
               toggleFunction(section);
             }} style={styles.touchableItem}>
@@ -216,8 +248,6 @@ export default function Search() {
           renderSectionHeader={({ section }) => (
             <Text style={styles.sectionHeader}>{section.title}</Text>
           )}
-          // ItemSeparatorComponent={() => <View style={styles.separator} />}
-          // ListEmptyComponent={<Text></Text>}
         />
       </View>
     </View>
