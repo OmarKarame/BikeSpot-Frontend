@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Dimensions, SectionList, TouchableOpacity, Image, Button } from 'react-native';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
 import { REACT_APP_GCP_MAP_API_KEY, REACT_APP_LOCATIONIQ_API_KEY } from '@env';
+import debounce from 'lodash.debounce';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LocationSearchContainer from '../components/LocationSearchContainer';
 import LocationContext from '../components/LocationContext';
@@ -186,15 +187,19 @@ export default function Search() {
     setDataJson(data);
   }
 
+  const debouncedGetLocationData = useCallback(debounce((location) => {
+    getLocationData(location);
+  }, 1500), []);
+
   useEffect(() => {
     if (fromLocation) {
-      getLocationData(fromLocation);
+      debouncedGetLocationData(fromLocation);
     }
   }, [fromLocation]);
 
   useEffect(() => {
     if (toLocation) {
-      getLocationData(toLocation);
+      debouncedGetLocationData(toLocation);
     }
   }, [toLocation]);
 
