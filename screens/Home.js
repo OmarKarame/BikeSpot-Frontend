@@ -55,7 +55,7 @@ export default function Home() {
             </View> */}
             <View style={styles.headerTextSection}>
               <Text style={styles.headerText}>
-                Find your fastest route now!
+                BikePoint
               </Text>
             </View>
             <View style={styles.headerLogoSection}>
@@ -66,9 +66,9 @@ export default function Home() {
           <GetMeSomewhereButton />
           <AdditionalContentContainer />
         </View>
-        <View style={styles.footer}>
+        {/* <View style={styles.footer}>
           <Image source={santanderBike} style={styles.bikeImage} />
-        </View>
+        </View> */}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -105,22 +105,25 @@ const styles = StyleSheet.create({
     width: screenWidth * 90/100,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: '10%',
     // transform: [{ translateX: - screenWidth * 12/100}]
   },
   headerTextSection:{
-    width: '85%',
+    width: '74%',
     // backgroundColor: 'red',
     marginBottom: 12,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   headerText: {
+    // backgroundColor: 'yellow',
     color: 'black',
-    fontSize: 60,
+    fontSize: 30,
     fontWeight: '600',
-    marginBottom: '3%',
-    letterSpacing: -2,
-    lineHeight: 70,
+    marginTop: '3%',
+    letterSpacing: -1,
+    // lineHeight: 35,
   },
   headerBlob: {
     width: 50,
