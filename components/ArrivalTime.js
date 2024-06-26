@@ -34,7 +34,7 @@ export default function ArrivalTime({ isLocationSet }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: '1',
+    flex: 1,
     alignItems: 'center',
     maxWidth: '24%',
     justifyContent: 'center',
